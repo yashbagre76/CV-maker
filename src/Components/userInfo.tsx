@@ -1,4 +1,6 @@
 import { useForm, Controller } from "react-hook-form";
+import PdfGenerator from "./PdfGenerator";
+import { useState } from "react";
 import {
   TextField,
   Button,
@@ -36,6 +38,7 @@ type FormData = {
 };
 
 const UserForm = () => {
+  const [formData, setFormData] = useState<FormData | null>(null);
   const {
     register,
     handleSubmit,
@@ -45,6 +48,7 @@ const UserForm = () => {
 
   const onSubmit = (data: FormData) => {
     console.log("Form Data:", data);
+    setFormData(data); // Pass the form data to the state for PdfGenerator
   };
 
   return (
@@ -238,6 +242,9 @@ const UserForm = () => {
             </Grid>
           </Grid>
         </form>
+
+        {/* Render PdfGenerator if formData exists */}
+        {formData && <PdfGenerator data={formData} />}
       </Paper>
     </Container>
   );
